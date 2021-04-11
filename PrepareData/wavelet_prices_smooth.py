@@ -2,9 +2,10 @@ import pickle
 import pywt
 import numpy as np
 import matplotlib.pyplot as plt 
-
-from utils import *
-from base_dir import *
+import sys
+sys.path.insert(0, '../')
+from Utils.utils import *
+from Utils.base_dir import *
 
 #font family for the charts
 font = {'family':'sans-serif', 'color':'black', 'weight':'normal', 'size' : 12,}
@@ -43,7 +44,7 @@ def __main():
 		#load the array from the file
 		array_dati = pickle.load(file_array)
 		#normalize data
-		normal_data = NormalizeData(array_dati)
+		normal_data = Normalize_Data_Data_Raw(array_dati)
 		
 		#aplly the wavelet decomposition
 		#to do this is necessary to specify some parameters used by the decomposition

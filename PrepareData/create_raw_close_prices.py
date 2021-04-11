@@ -3,7 +3,9 @@ import numpy as np
 import matplotlib
 import pickle
 
-from base_dir import *
+import sys
+sys.path.insert(0, '../')
+from Utils.base_dir import *
 
 input_file_list = os.listdir(raw_tick_data)
 
