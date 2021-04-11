@@ -27,10 +27,15 @@ from Utils.utils import *
 
 def main():
     
-	# for my purpose i decided to use the not smoothed data, to stress the neural network potential
-	input_file_list = os.listdir(raw_1min_data)
-	# for use smoothed data decomment the following line
-	#input_file_list = os.listdir(raw_1min_data_smoothed)
+	smoothed_data = input("Do you want to use smoothed data? [Y -> yes / N -> no] \n")
+	input_file_list = []
+	data_dir = ''
+	if(smoothed_data == 'Y' or smoothed_data == 'y'):
+		input_file_list = os.listdir(raw_1min_data_smoothed)
+		data_dir = raw_1min_data_smoothed
+	else: 
+		input_file_list = os.listdir(raw_1min_data)
+		data_dir = raw_1min_data
 	
     # fix random seed for reproducibility 
 	np.random.seed(7)
@@ -41,7 +46,7 @@ def main():
 	print('loading the data structures...')
 
 	for input_pickle_file in input_file_list:
-		input_file_path = os.path.join(raw_1min_data, input_pickle_file)
+		input_file_path = os.path.join(data_dir, input_pickle_file)
 		file_array = open(input_file_path, 'rb')
 		array_dati = pickle.load(file_array)
 		close_prices.append(array_dati)
@@ -119,28 +124,23 @@ def main():
 			valid_labels_ok.append(valid_labels[i][j])
 	valid_samples_ok = np.array(valid_samples_ok)
 	valid_labels_ok = np.array(valid_labels_ok)
-	# check if it is correct
-	#print('\n training set:\n')
-	#print(train_samples)
-	#print('\n training labels:\n')
-	#print(train_labels)
 
 	optimizer_used = opt.Nadam(lr=learn_rate, beta_1=beta1, beta_2=beta2, epsilon=None, schedule_decay=sched_decay)
 
-	# show the shape of the training sample, it is usefull to correctly fit the model
-	print('trainsamples shape: '+str(train_samples_ok.shape))
+	# show the shape of the training sample, it could be usefull to correctly fit the model
+	# print('trainsamples shape: '+str(train_samples_ok.shape))
 
 	# Construct the model    
 	model = Sequential()
-	# Add the input layer with the same shape of the training samples
+	# Add the input layer with the same shape of the training samples, activation activ_function_1 and dropout drop_out
 	model.add(Dense(input_dim=train_samples_ok.shape[1], units=output_dim1))
 	model.add(Activation(activ_function_1))
 	model.add(Dropout(drop_out))
-	# Add an Hidden layer, activation RELU, dropout = drop_out
+	# Add an Hidden layer, activ_function_2, dropout = drop_out
 	model.add(Dense(units=output_dim2))
 	model.add(Activation(activ_function_2))
 	model.add(Dropout(drop_out))
-	# Add an Hiddel layer with , activation RELU, dropout 0.5
+	# Add an Hiddel layer with , activation activ_function_3, dropout drop_out
 	model.add(Dense(units=output_dim3))
 	model.add(Activation(activ_function_3))
 	model.add(Dropout(drop_out))
@@ -169,6 +169,7 @@ def main():
 	end = tm.time()
 	print("execution training phase: "+str(end-start)+"\n")
 	#print(train_log.history.keys())
+	
 	'''
 	# Plot training & validation accuracy values
 	plt.plot(history.history['acc'])
@@ -187,24 +188,26 @@ def main():
 	plt.xlabel('Epoch')
 	plt.legend(['Train', 'Test'], loc='upper left')
 	plt.show()
-
 	'''
+	# Plot training & validation accuracy values
 	plt.plot(train_log.history["loss"], color = 'black', linewidth=0.4, label="training (mse)")
 	plt.plot(train_log.history["val_loss"], '-.', color = 'grey', linewidth=0.4, label="validation (mse)")
 	plt.title('Training e Validation Loss')
 	plt.ylabel('Mean Squared Error')
 	plt.xlabel('Epochs')
+	plt.yticks(np.arange(-0.0005, 0.0005, step=0.001))
 	plt.legend()
 	plt.show()
-
+	# Plot training & validation loss values
 	plt.plot(train_log.history['mean_absolute_error'], color = 'black', linewidth=0.4, label='training (mae)')
 	plt.plot(train_log.history['val_mean_absolute_error'], '-.', color = 'grey', linewidth=0.4, label = 'validation (mae)')   
 	plt.title('Training e Validation Metrics')
 	plt.ylabel('Mean Absolute Error')
 	plt.xlabel('Epochs')
+	plt.yticks(np.arange(-0.0005, 0.0005, step=0.001))
 	plt.legend()
 	plt.show()
-
+	
 	#evaluation = model.evaluate(test_samples_ok, test_labels_ok, batch_size = 128, verbose = 1)
 	#print(model.metrics_names)
 	#print(evaluation)
@@ -232,23 +235,25 @@ def main():
 
 	new_diff = np.array(differences)
 
+	# Plot predictions vs labels
 	plt.plot(labels_close, color = 'black', linewidth=0.5, label = 'labels')
 	plt.plot(close_prediction, color = 'grey', linewidth=0.6, label = 'predictions')
-	plt.title('Predizioni')
-	plt.ylabel('Prezzi di Chiusura')
-	plt.xlabel('Numero di Campioni')
+	plt.title('Predictions')
+	plt.ylabel('Price values')
+	plt.xlabel('Number of samples')
 	plt.legend()
 	plt.show()
-	  
+	
+	# Plot prediction error
 	plt.plot(new_diff, '--', color = 'black', linewidth=0.1, label = 'prediction error')
 	plt.yticks(np.arange(-0.05, 0.10, step=0.05))
-	plt.title('Errore Predizioni')
+	plt.title('Punctual prediction error')
 	plt.legend()
 	plt.show()
 
-	save_model = bool(input('Save the Network? (1 -> YES; 0 -> NO): \n'))
-	if(save_model):
-		model.save('MLP_Conf.h5')
+	save_model = input('Save the Network? ([Y -> YES / N -> NO]): \n')
+	if(save_model == 'Y' or save_model == 'N'):
+		model.save(os.path.join(str(trained_mlp), "MLP_forecast.h5"))
 
 	# free the gpu resources
 	Kback.clear_session()

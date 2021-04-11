@@ -20,15 +20,15 @@ batch_size = 128
 # the dropout value for the hidden payers (express the percentage of weights that will be randomly setted to 0.0)
 drop_out = 0.243
 # the patience look for loss function change. It will stop the training when the loss change become irrelevant
-pati = 5
+pati = 6
 
-# optimization parameter, i decided to use the N-Adam optimizer 
+# optimization parameter for the N-Adam optimizer 
 # the learning rate used by the optimization
-learn_rate = 0.001
+learn_rate = 0.0001
 beta1 = 0.9
 beta2 = 0.999
 sched_decay = 0.004
 
-# loss function used by the model 
+# loss and metric functions used by the model 
 loss_function = "mse"
 metric_function = "mae"

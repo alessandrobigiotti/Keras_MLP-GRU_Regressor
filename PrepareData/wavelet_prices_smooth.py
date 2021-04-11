@@ -11,6 +11,7 @@ from Utils.base_dir import *
 font = {'family':'sans-serif', 'color':'black', 'weight':'normal', 'size' : 12,}
 
 # prova per stampare le wavelets
+# this function is usefull to print the wavelet functions, isn't used by this script
 def PlotChart(array_data):
 
     x = np.linspace(0.0, 5.0, 100)
@@ -63,7 +64,7 @@ def __main():
 		new_coeff = []
 		
 		for i in range(len(coeff)):
-			new_coeff.append(pywt.threshold(coeff[i], 0.001, 'soft'))
+			new_coeff.append(pywt.threshold(coeff[i], 0.01, 'soft'))
 		
 		np.array(new_coeff)
 		
@@ -72,12 +73,12 @@ def __main():
 		for i in range(0, len(coeff)):
 			if (i == 0):
 				approx_num = len(coeff) - 1
-				# decomment the following lines to show the approximation coefficient
+				# decomment the following lines to print the approximation coefficient
 				#print("Approximation Coefficient: A"+str(approx_num))
 				#print(coeff[i])
 				#print("\n")
 			coeff_num = len(coeff) - i - 1
-			# decomment the following lines to see the detail coefficient
+			# decomment the following lines to print the detail coefficient
 			#print("Detail coefficient: D"+str(coeff_num))
 			#print(coeff[i])
 			#print("\n")
@@ -85,13 +86,13 @@ def __main():
 		# first reconstruction mode (FULLY Reconstruction)
 		reconstruction = pywt.waverec(new_coeff, wavelet)
 		
-		# to see the reconstruction data decomment the following lines
+		# to print the reconstruction data decomment the following lines
 		#print("Reconstruction Normalized Data")
 		#print(reconstruction)
 		
-		plt.title('Prezzi Grezzi VS Prezzi Smooth')
-		plt.plot(reconstruction, linewidth=0.8, color = 'black', label='prezzi smooth')
-		plt.plot(normal_data, linewidth=0.8, color = 'darkgrey', label='prezzi grezzi')
+		plt.title('Normalized prices VS Smoothed prices')
+		plt.plot(normal_data, linewidth=0.8, color = 'darkgrey', label='Normalized prices')
+		plt.plot(reconstruction, linewidth=0.8, color = 'black', label='Smoothed prices')
 		plt.legend()
 		if(show_plot == 'y' or show_plot == 'Y'):
 			plt.show()
@@ -103,17 +104,8 @@ def __main():
 		np.array(difference)
 
 		plt.plot(difference, linewidth=0.1, color = 'black')
-		plt.yticks(np.arange(-0.01, 0.015, step=0.005))
-		plt.title('Errore di Ricostruzione')
-		if(show_plot == 'y' or show_plot == 'Y'):
-			plt.show()
-		
-		
-		plt.plot(normal_data, linewidth=0.1, color = 'black')
-		plt.title('Prezzi di Chiusura Normalizzati', fontdict = font)
-		plt.xlabel('Time (t)', fontdict = font)
-		plt.ylabel('Closed Prices (x)', fontdict = font)
-		plt.subplots_adjust(left=0.15)
+		plt.yticks(np.arange(-0.05, 0.050, step=0.010))
+		plt.title('Reconstruction Error')
 		if(show_plot == 'y' or show_plot == 'Y'):
 			plt.show()
 		
