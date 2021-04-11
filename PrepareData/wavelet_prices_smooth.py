@@ -51,7 +51,7 @@ def __main():
 		#to do this is necessary to specify some parameters used by the decomposition
 		print('Wavelet implemented:')
 		print(pywt.wavelist(kind='discrete'))
-		wavelet_choosen = input('Insert the wavelet choosen: \n')
+		wavelet_choosen = input('Insert the wavelet to use: \n')
 		print('\nMaximum level decomposition: ')
 		max_level = pywt.dwt_max_level(len(normal_data), wavelet_choosen)
 		print('max_level = '+str(max_level))

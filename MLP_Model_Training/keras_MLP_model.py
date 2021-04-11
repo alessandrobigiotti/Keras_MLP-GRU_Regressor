@@ -168,27 +168,10 @@ def main():
 	#print(train_log.history)
 	end = tm.time()
 	print("execution training phase: "+str(end-start)+"\n")
+	
+	# print the train_log keys
 	#print(train_log.history.keys())
 	
-	'''
-	# Plot training & validation accuracy values
-	plt.plot(history.history['acc'])
-	plt.plot(history.history['val_acc'])
-	plt.title('Model accuracy')
-	plt.ylabel('Accuracy')
-	plt.xlabel('Epoch')
-	plt.legend(['Train', 'Test'], loc='upper left')
-	plt.show()
-
-	# Plot training & validation loss values
-	plt.plot(history.history['loss'])
-	plt.plot(history.history['val_loss'])
-	plt.title('Model loss')
-	plt.ylabel('Loss')
-	plt.xlabel('Epoch')
-	plt.legend(['Train', 'Test'], loc='upper left')
-	plt.show()
-	'''
 	# Plot training & validation accuracy values
 	plt.plot(train_log.history["loss"], color = 'black', linewidth=0.4, label="training (mse)")
 	plt.plot(train_log.history["val_loss"], '-.', color = 'grey', linewidth=0.4, label="validation (mse)")

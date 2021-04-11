@@ -24,7 +24,7 @@ pati = 6
 
 # optimization parameter for the N-Adam optimizer 
 # the learning rate used by the optimization
-learn_rate = 0.0001
+learn_rate = 0.001
 beta1 = 0.9
 beta2 = 0.999
 sched_decay = 0.004
