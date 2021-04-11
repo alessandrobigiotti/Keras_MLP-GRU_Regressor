@@ -5,15 +5,13 @@ import pickle
 
 from base_dir import *
 
-print("localfile: "+str(local_file_path))
-print("parent_dir: "+str(parent_dir))
-print("base_dir: "+str(base_dir))
-print("raw_dir: "+str(raw_tick_data))
-print("raw_1min_data: "+str(raw_1min_data))
-
 input_file_list = os.listdir(raw_tick_data)
 
-print("\n file list: "+str(input_file_list))
+price_to_save = input("Choose the price to exprot as pickle file: \n \n "+
+"Type 1 for High price \n "+
+"Type 2 for Low price \n "+
+"Type 3 for Open price \n "+
+"Type 4 for Close price \n")
 
 for input_csv_file in input_file_list:
 
@@ -24,6 +22,8 @@ for input_csv_file in input_file_list:
 	
 	input_file_path = os.path.join(str(raw_tick_data), input_csv_file)
 	output_file_path = os.path.join(str(raw_1min_data), output_file)
+	
+	print("processing file: "+str(input_file_path)+"\n")
 	
 	Time = []
 	Date = []
@@ -39,8 +39,9 @@ for input_csv_file in input_file_list:
 	i = 0
 	time = '00:00:00'
 
+	# for each file into the data raw folder the script is going to parse it
+	# will be constructed the quotations in 1 minute and will be selected the right prices
 	with open(input_file_path, 'r') as csvfile:
-		print("processing file: "+str(input_file_path)+"\n")
 		spamreader = csv.reader(csvfile, delimiter = ';')
 		for row in spamreader:
 					
@@ -61,8 +62,8 @@ for input_csv_file in input_file_list:
 					Open.append(val)
 					t = np.array(temp)
 					if(len(t) > 0):
-						max = -1.00000
-						min = 20000.0
+						max = -9999999.00000
+						min = 2000000.0
 						for elem in t:
 							if(float(elem) > max):
 								max = float(elem) 
@@ -101,10 +102,16 @@ for input_csv_file in input_file_list:
 	np.array(Date)
 	np.array(Volume)
 
-
 	out_file = open(output_file_path, 'wb')
-	pickle.dump(Close, out_file)
-	print("file created: "+str(output_file_path)+"\n")
+	if(price_to_save == "1"):
+		pickle.dump(High, out_file)
+	if(price_to_save == "2"):
+		pickle.dump(Low, out_file)
+	if(price_to_save == "3"):
+		pickle.dump(Open, out_file)
+	if(price_to_save == "4"):
+		pickle.dump(Close, out_file)
+	print("created file: "+str(output_file_path)+"\n")
 	out_file.close()
 
 print('The files are ready!')
