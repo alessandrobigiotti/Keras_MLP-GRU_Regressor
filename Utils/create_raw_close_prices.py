@@ -44,7 +44,7 @@ for input_csv_file in input_file_list:
 	with open(input_file_path, 'r') as csvfile:
 		spamreader = csv.reader(csvfile, delimiter = ';')
 		for row in spamreader:
-					
+			# discard the header line
 			if (i > 0):
 				timeCurRaw = row[0][11:]
 				timeCur = timeCurRaw[:5]
