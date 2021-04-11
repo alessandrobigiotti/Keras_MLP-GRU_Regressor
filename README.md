@@ -8,3 +8,5 @@ At the beginning I focudes only on Forex prices time series, and after I extende
 
 The project is composed by some parts that allows the user to clena and construct a dataset. Starting from the Tick prices movements (i.e. each price movements registered into a minute), 
 construct a 1 minute price movements (one can choise if use Ask, Bid, Close, High or Low price). 
+
+# Working in progress
