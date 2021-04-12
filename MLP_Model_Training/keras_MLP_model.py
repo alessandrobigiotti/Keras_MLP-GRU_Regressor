@@ -235,11 +235,18 @@ def main():
 	plt.show()
 
 	save_model = input('Save the Network? ([Y -> YES / N -> NO]): \n')
-	if(save_model == 'Y' or save_model == 'N'):
+	if(save_model == 'Y' or save_model == 'y'):
 		model.save(os.path.join(str(trained_mlp), "MLP_forecast.h5"))
-
+		afile = open(os.path.join(str(trained_mlp), "min_val.pkl"), 'wb')
+		pickle.dump(min_val, afile)
+		afile.close()
+		afile = open(os.path.join(str(trained_mlp), "max_val.pkl"), 'wb')
+		pickle.dump(max_val, afile)
+		afile.close()
+	
+	print('min max for normalization: '+str(min_val)+"; "+str(max_val))
 	# free the gpu resources
 	Kback.clear_session()
-	print('min max for normalization: '+str(min_val)+"; "+str(max_val))
+	
 if __name__ == "__main__": 
     main()

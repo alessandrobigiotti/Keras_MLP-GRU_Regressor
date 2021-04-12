@@ -8,3 +8,5 @@ raw_1min_data_smoothed = os.path.join(str(base_dir), "Data", "Raw_1Min_ClosePric
 dataset_dir = os.path.join(str(base_dir), "Data", "Dataset")
 trained_mlp = os.path.join(str(base_dir),"Trained_MLP")
 trained_gru = os.path.join(str(base_dir),"Trained_GRU")
+model_gru = os.path.join(str(base_dir), "GRU_Model_Training")
+model_mlp = os.path.join(str(base_dir), "MLP_Model_Training")

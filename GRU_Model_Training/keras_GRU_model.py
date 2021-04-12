@@ -186,9 +186,15 @@ def main():
 	plt.legend()
 	plt.show()
 
-	save_model = bool(input('Save the Network? ([Y -> YES / N -> NO]): \n'))
-	if(save_model == 'Y' or save_model == 'N'):
+	save_model = input('Save the Network? ([Y -> YES / N -> NO]): \n')
+	if(save_model == 'Y' or save_model == 'y'):
 		model.save(os.path.join(str(trained_gru), "GRU_forecast.h5"))
+		afile = open(os.path.join(str(trained_gru), "min_val.pkl"), 'wb')
+		pickle.dump(min_val, afile)
+		afile.close()
+		afile = open(os.path.join(str(trained_gru), "max_val.pkl"), 'wb')
+		pickle.dump(max_val, afile)
+		afile.close()
 
 	print('min, max valued for normalizations: '+str(min_val)+"; "+str(max_val))
 	# free the gpu resources

@@ -35,13 +35,46 @@ def Normalize_Data_DataSet(resize_data):
 	new_normal_data = np.array(normal_data)
 	return(local_min_val, local_max_val, new_normal_data)
 
-#function to denormalize data used by MLP and GRU model
+# function to normalize data for real time use		
+def Normalize_Data_For_RealTimeUse(dati, min_val, max_val):
+    temp = []
+    for i in range (len(dati)):
+        temp.append((dati[i] - min_val)/(max_val - min_val))
+    
+    return(np.array(temp))
+	
+#function to denormalize data used by MLP and GRU model during the training phase
 def DeNormalize(data, min, max):
     denorm_data = []
     for i in range (len(data)):
         denorm_data.append((data[i]*(max - min))+min)
     return(np.array(denorm_data))
+
+#function to denormalize data used by MLP and GRU during real time executions
+def DeNormalize_RealTime(data, min, max):
+    denorm_data = []
+    for i in range (len(data)):
+        denorm_data.append((data[i][0]*(max - min))+min)
+    return(np.array(denorm_data))
+
+# function to create the right input path for the rela time prediction of the network
+def CreatePattern(array, dim):
+    dati = []
+    for j in range(len(array)-1-dim, len(array)-1, 1):
+        dati.append(array[j])
+
+    return(np.array(dati))
 	
+#function to check if a new max and min occur in the series, when happens requires a new normalization parameter
+def check_MinMax(array_dati, min_val, max_val):
+    rel_min = min(array_dati)
+    rel_max = max(array_dati)
+    
+    if(rel_min < min_val or max_val < rel_max):
+        return False
+    
+    return True
+
 #function used to split dataset into training, validation and test set
 def Divide_Data(normal_data):
     proportion = int((len(normal_data) / 7))

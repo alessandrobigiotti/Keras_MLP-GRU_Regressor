@@ -17,42 +17,22 @@ from keras.layers.core import Activation, Dropout
 from keras.callbacks import EarlyStopping
 from tensorflow.python.client import device_lib
 import csv
-
-def NormalizeData(dati, min_val, max_val):
-    temp = []
-    for i in range (len(dati)):
-        temp.append((dati[i] - min_val)/(max_val - min_val))
-    
-    return(np.array(temp))
-
-def DeNormalize(data, min, max):
-    denorm_data = []
-    for i in range (len(data)):
-        denorm_data.append((data[i][0]*(max - min))+min)
-    return(np.array(denorm_data))
-
-def CreatePattern(array, dim):
-    dati = []
-    for j in range(len(array)-1-dim, len(array)-1, 1):
-        dati.append(array[j])
-
-    return(np.array(dati))
-
-def check_MinMax(array_dati, min_val, max_val):
-    rel_min = min(array_dati)
-    rel_max = max(array_dati)
-    
-    if(rel_min < min_val or max_val < rel_max):
-        return False
-    
-    return True
+import sys
+sys.path.insert(0, '../')
+from Utils.base_dir import *
+from Utils.utils import *
+from GRU_Model_Training.gru_iperparameter_settings import size_campioni
 
 def main(): 
     
-    config = str(input('Insert the .h5 network model: \n'))
+	#select the model trained
+	trained_model = os.path.join(str(trained_gru), "GRU_forecast.h5")
     model = load_model(config)
-    input_dim = int(input('Insert the dimension of the input layer: \n'))
-    step_forecast = int(input('Insert the step forecast horizon: \n'))
+	# the input dimension for the trained network (have to be the same used during the contruction and the training of the model)
+    input_dim = size_campioni
+	
+	# insert the number of prediction we need (i.e the forecast step). Values bigger than 3 could produce bad results
+    step_forecast = int(input('Insert the step forecast horizon (a value bigger than 3 could produce bad results): \n'))
 
     file = input("Insert the file of minute oscillations (csv format file!): \n")
     i=0
@@ -66,15 +46,17 @@ def main():
     array_dati = np.array(Price)
     print(array_dati)
 
-    min_val = float(input('Insert the minumum values for the normalization: \n'))
-    max_val = float(input('Insert the maximum values for the normalization: \n'))
+	file_min = open(os.path.join(str(trained_gru), "min_val.pkl"), 'rb')
+	min_val = pickle.load(file_min)
+	file_max = open(os.path.join(str(trained_gru), "max_val.pkl"), 'rb')
+    max_val = pickle.load(file_max)
     
     ok = check_MinMax(array_dati, min_val, max_val)
     if(ok == False): 
         print("Max or Min violated, make a new training for the network!")
         exit()
     
-    pattern = NormalizeData(array_dati, min_val, max_val)
+    pattern = Normalize_Data_For_RealTimeUse(array_dati, min_val, max_val)
 
     path = CreatePattern(pattern, input_dim)
     shape_path = []
@@ -92,7 +74,7 @@ def main():
     
     print(pred_made)
     print('Denormalized prediction: \n')
-    predition = DeNormalize(pred_made, min_val, max_val)
+    predition = DeNormalize_RealTime(pred_made, min_val, max_val)
     print(predition)
 
 if __name__ == "__main__": 
