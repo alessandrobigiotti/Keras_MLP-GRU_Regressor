@@ -14,10 +14,10 @@ To correctly execute the program we need to install and set up:
 * _Python3_, _Tensorflow_ and _Keras_. I found a great presentation made by [Jaff Hauton](https://github.com/jeffheaton) using Anaconda, follow the guide [here](https://www.youtube.com/watch?v=dj-Jntz-74g).  If you prefer a classic installation type the following commands (Debian/Ubuntu):
   * $ sudo apt-get update
   * $ sudo apt-get install python3.8
-  * verify _python_ and _pip_ installation:
+* verify _python_ and _pip_ installation:
   * $ python --version 
   * $ pip --version 
-  * If the installation is done type:
+* If the installation is done type:
   * $ pip install --upgrade tensorflow tensorflow-gpu
 * _PyWavelets_ is a useful python package apply wavelet decomposition to time series, [pywt](https://pywavelets.readthedocs.io/en/latest/)
 
