@@ -17,9 +17,9 @@ To correctly execute the program we need to install and set up:
 * verify _python_ and _pip_ installation:
   * $ python --version 
   * $ pip --version 
-* If the installation is done type:
+* If the installation is correctly done type:
   * $ pip install --upgrade tensorflow tensorflow-gpu
-* _PyWavelets_ is a useful python package apply wavelet decomposition to time series, [pywt](https://pywavelets.readthedocs.io/en/latest/)
+* _PyWavelets_ is a useful python package needed to apply wavelet transform, [pywt](https://pywavelets.readthedocs.io/en/latest/)
 
 The project is composed by some parts that allow the user to clean and construct a dataset. Starting from the Tick prices movements (i.e. each price movements registered into a minute), construct a 1 minute price movements (one can choose if use Open, Close, High or Low price). During the preparation of the data, will be created two time series. The first will be formed by a sequence of prices chossen, the second one will be formed by a smoothed version of the same price.
 
