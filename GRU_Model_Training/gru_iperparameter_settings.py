@@ -1,4 +1,5 @@
-﻿# the iper parameters used by the network, the choise of these values will affect the behaviour of the network
+#### created by Alessandro Bigiotti ####
+# the iper parameters used by the network, the choise of these values will affect the behaviour of the network
 # the dimension of the input layer, is also the number of the prices involved in the prediction
 size_campioni = 32
 # the dimension of the output for the first layer (the input dimension of the second layer)
