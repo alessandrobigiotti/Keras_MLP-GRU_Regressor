@@ -1,3 +1,4 @@
+#### created by Alessandro Bigiotti ####
 import os
 local_file_path = os.path.abspath(__file__)
 parent_dir = os.path.abspath(os.path.join(local_file_path, os.pardir))
