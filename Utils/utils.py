@@ -1,3 +1,4 @@
+#### created by Alessandro Bigiotti ####
 import numpy as np
 
 #function to normalize the prices data used by wavelet_prices_smooth
