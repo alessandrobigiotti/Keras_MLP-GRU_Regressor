@@ -11,7 +11,7 @@ If you have a GPU with support to CUDA i strongly recommend to install it. Isn't
 * See this [guide](http://docs.nvidia.com/cuda/cuda-installation-guide-linux/#axzz4KKVroazE) to install CUDA
 * Download and set up [CUDA-Toolkit](https://developer.nvidia.com/cuda-downloads)
 To correctly execute the program we need to install and set up:
-* _Python3_, _Tensorflow_ and _Keras_. I found a great presentation made by [Jaff Hauton](https://github.com/jeffheaton) using Anaconda, follow the guide [here](https://www.youtube.com/watch?v=dj-Jntz-74g).  If you prefer a classic installation type the following commands (Debian/Ubuntu):
+* _Python3_, _Tensorflow_ and _Keras_. I found a great presentation made by [Jaff Hauton](https://github.com/jeffheaton) using Anaconda, follow the guide [here](https://www.youtube.com/watch?v=dj-Jntz-74g).  If you prefer to use _pip_ then type the following commands (Debian/Ubuntu):
   * $ sudo apt-get update
   * $ sudo apt-get install python3.8
 * verify _python_ and _pip_ installation:
