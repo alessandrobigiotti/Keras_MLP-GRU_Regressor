@@ -21,7 +21,7 @@ To correctly execute the program we need to install and set up:
   * $ pip install --upgrade tensorflow
 * If you have installed CUDA, you can use _tensorflow-gpu_:
   * $ pip install --upgrade tensorflow-gpu
-* _PyWavelets_ is a useful python package needed to apply wavelet transform, [pywt](https://pywavelets.readthedocs.io/en/latest/)
+* _PyWavelets_ is a useful python package needed to apply wavelet transform, see [pywt](https://pywavelets.readthedocs.io/en/latest/)  
 **NOTICE**: make attention that the version of your GPU drivers, CUDA-Toolkit and tensorflow-gpu have compatible version. In general you need a python version greater than 3.4.X to execute the program.
 
 ## The program
