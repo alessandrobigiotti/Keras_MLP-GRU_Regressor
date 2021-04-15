@@ -4,10 +4,10 @@
 This is my contribution for the master's degree thesis. In this project I present two types of nonlinear regressors for predicting time series. The first one is implemented with a classic Multi Layer Perceptron Neural Network (MLP). The second one is implemented with a Recurrent Neural Network, Gated Recurrent Unit (GRU) scheme.
 At first I focused only on Forex price time series and later extended my interest in Crypto / Fiat price time series.
 
-The purpose of this project is to show an easy way to create a good dataset, to train the desired model (MLP or GRU) and to use it in real time forecasting.
+The purpose of this repository is to show an easy way to create a good dataset, to train the desired model (MLP or GRU) and to use it in real time forecasting.
 
 ## Requirements
-If you have a GPU with CUDA support I highly recommend you install it. It is not mandatory, if you do not have this kind of possibility, in the code I have indicated which lines you need to comment to correctly run the program. To install CUDA follow: 
+If you have a GPU with CUDA support I highly recommend you install it. It is not mandatory. If you do not have this kind of possibility, in the code I have indicated which lines you need to comment to correctly run the program. To install CUDA follow: 
 * See this [guide](http://docs.nvidia.com/cuda/cuda-installation-guide-linux/#axzz4KKVroazE) to install CUDA
 * Download and set up [CUDA-Toolkit](https://developer.nvidia.com/cuda-downloads)
 To correctly execute the program we need to install and set up:
@@ -25,14 +25,14 @@ To correctly execute the program we need to install and set up:
 **NOTICE**: make attention that the version of your GPU drivers, CUDA-Toolkit and tensorflow-gpu have compatible version. In general you need a python version greater than 3.4.X to execute the program.
 
 ## The program
-The project is composed by some python scripts that allow the user to clean and construct a dataset. Starting from the Tick prices movements (i.e. each price movements registered into a minute), construct a 1 minute price movements (one can choose if use Open, Close, High or Low price). Depending on the price choosen, the program will create two time series. The first one will be a sequence of the prices, the second one will be a smoothed version of the same sequence.  After the data is clean, the script start to traing the neural network. One can choose if train the Multi Layer Perceprton or the Gated Recurrent Unit model.  After the network is trained, one can execute the prediction.
+The project is composed by some python scripts that allow the user to clean data,  to construct a dataset, to train a neural network model and to use it. Starting from the Tick prices movements (i.e. any price movement that has occurred), it constructs a 1 minute price movements (one can choose if use Open, Close, High or Low price). Depending on the price choosen, the program will create two time series. The first one will be a sequence of the prices, the second one will be a smoothed version of the same sequence. After the data is clean, the script start to train the neural network. One can choose if train the Multi Layer Perceprton or the Gated Recurrent Unit model. After the network is trained, one can execute the prediction.
 
 ### Program description 
 * The folder Data contain four folders: 
- * Raw_Tick_Data: containes some _.csv_ files that hold the raw tick prices. The files come from _JForex_ platform that allows to download the tick price movements. [JForex](https://www.dukascopy.com/land/trading/swfx/eu/platforms/?lang=en)
- * Normalized_1Min_Price: containes some pickle files with the normalized price registered into 1 minute
- * Normalized_1Min_SmoothedPrice: containes some pickle files with the normlized prices smoothed by PyWavelets registered into 1 minute
- * Input_Data: contains a _.csv_ file, the input example for the trained network
+ * Raw_Tick_Data: containes some _.csv_ files that hold the raw tick prices. The files come from [Dukascopy](https://www.dukascopy.com/land/trading/swfx/eu/home/?lang=en) broker, and are downloaded from [JForex](https://www.dukascopy.com/land/trading/swfx/eu/platforms/?lang=en) platform. In the folder you can find the quotations of Bitcoin against US dollar (BTC/USD) related to the January and February 2018.
+ * Normalized_1Min_Price: containes some pickle files with the normalized price registered into 1 minute. 
+ * Normalized_1Min_SmoothedPrice: containes some pickle files with the normlized prices smoothed by PyWavelets registered into 1 minute.
+ * Input_Data: contains a _.csv_ file, the input example for the trained network. It is needed to real time usage.
 * The folders MLP_Model_Training and GRU_Model_Training containe both:
  * a file of configuration for the hyper parameters needed by the network (each model has its own configuration)
  * a file that contain the model itself. In there is the DataSet construction and the model training
