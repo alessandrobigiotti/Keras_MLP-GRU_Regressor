@@ -43,5 +43,11 @@ The project is composed by some python scripts that allow the user to clean data
 * The script _setup.sh_ is the executable, responsible for run all the script needed to clean data, create dataset and train the model.
 * The script _execute_model.sh_ is the executable to load the trained network and make real time prediction.
 
-# Work in progress...
+## How it functions
+Download the repository and move the main directory _Keras_MLP-GRU_Regressor_. Open here the terminal, then run:
+* $ ./setup.sh
+* $ ./execute_model.sh
+
+The first script will create all the the data needed (normalized data, trained model). The second script will execute the model trained to perform a real time forecast.  
+**NOTICE**: The purpose of this project is for demonstration only. Before using it in a real context it is necessary to structure the real-time forecast data in another way (retrieve data from api, query a DB and so on ...), but it is beyond my intentions.
 
