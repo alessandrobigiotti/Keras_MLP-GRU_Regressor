@@ -28,19 +28,19 @@ To correctly execute the program we need to install and set up:
 The project is composed by some python scripts that allow the user to clean data,  to construct a dataset, to train a neural network model and to use it. Starting from the Tick prices movements (i.e. any price movement that has occurred), it constructs a 1 minute price movements (one can choose if use Open, Close, High or Low price). Depending on the price choosen, the program will create two time series. The first one will be a sequence of the prices, the second one will be a smoothed version of the same sequence. After the data is ready, the script start to train the neural network. One can choose if train the Multi Layer Perceprton or the Gated Recurrent Unit model. After the network is trained, one can execute the prediction.
 
 ### Program description 
-* The folder Data contain four folders: 
- * Raw_Tick_Data: containes some _.csv_ files that hold the raw tick prices. The files come from [Dukascopy](https://www.dukascopy.com/land/trading/swfx/eu/home/?lang=en) broker, and are downloaded from [JForex](https://www.dukascopy.com/land/trading/swfx/eu/platforms/?lang=en) platform. In the folder you can find the quotations of Bitcoin against US dollar (BTC/USD) related to the January and February 2018.
- * Normalized_1Min_Price: contains some pickle files with the normalized price registered into 1 minute. 
- * Normalized_1Min_SmoothedPrice: contains some pickle files with the normlized prices smoothed by PyWavelets registered into 1 minute.
- * Input_Data: contains a _.csv_ file, the input example for the trained network. It is needed to real time usage.
-* The folders MLP_Model_Training and GRU_Model_Training contain both:
+* The _Data_ folder contains four folders: 
+ * _Raw_Tick_Data_: containes some _.csv_ files that hold the raw tick prices. The files come from [Dukascopy](https://www.dukascopy.com/land/trading/swfx/eu/home/?lang=en) broker, and are downloaded from [JForex](https://www.dukascopy.com/land/trading/swfx/eu/platforms/?lang=en) platform. In the folder you can find the quotations of Bitcoin against US dollar (BTC/USD) related to the January and February 2018.
+ * _Normalized_1Min_Price_: contains some pickle files with the normalized price registered into 1 minute. 
+ * _Normalized_1Min_SmoothedPrice_: contains some pickle files with the normlized prices smoothed by PyWavelets registered into 1 minute.
+ * _Input_Data_: contains a _.csv_ file, the input example for the trained network. It is needed to real time usage.
+* The _MLP_Model_Training_ and _GRU_Model_Training_ folders contain both:
  * a file of configuration for the hyper parameters needed by the network (each model has its own configuration)
  * a file that contain the model itself. In the files there is the DataSet construction and the model training.
-* The PrepareData folder contains two scripts which, starting from the _.csv_ files contained in Data/Raw_Tick_Data, populate the folders Normalized_1Min_Price and Normalized_1Min_SmoothedPrice.
-* The folders Trained_GRU and Trained_MLP contain the trained models (the _.h5_ file), and two pickle files min_val.pickle and max_val.pickle that are the max and min values related to the data used for the training. These values will be used to normalize the data for real time usage.
-* The Use_MLP_Trained_Model and Use_GRU_Trained_Model folders contain scripts to load and use the trained model for real-time forecast.
-* The folder Utils containes some file with utils function and some configurations needed by the project.
-* The script _setup.sh_ is the executable, responsible for run all the script needed to clean data, create dataset and train the model. 
+* The _PrepareData_ folder contains two scripts which, starting from the _.csv_ files contained in Data/Raw_Tick_Data, populate the folders Normalized_1Min_Price and Normalized_1Min_SmoothedPrice.
+* The _Trained_GRU_ and _Trained_MLP_ folders contain the trained models (the _.h5_ file), and two pickle files min_val.pickle and max_val.pickle that are the max and min values related to the data used for the training. These values will be used to normalize the data for real time usage.
+* The _Use_MLP_Trained_Model_ and _Use_GRU_Trained_Model_ folders contain scripts to load and use the trained model for real-time forecast.
+* The _Utils_ folder containes some file with utils function and some configurations needed by the project.
+* The script _setup.sh_ is the executable, responsible for run all the script needed to clean data, create dataset and train the model.
 * The script _execute_model.sh_ is the executable to load the trained network and make real time prediction.
 
 # Work in progress...
