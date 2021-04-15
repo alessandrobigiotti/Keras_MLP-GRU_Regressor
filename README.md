@@ -29,7 +29,9 @@ The project is composed by some python scripts that allow the user to clean data
 
 ### Program description 
 * The _Data_ folder contains four folders: 
- * _Raw_Tick_Data_: containes some _.csv_ files that hold the raw tick prices. The files come from [Dukascopy](https://www.dukascopy.com/land/trading/swfx/eu/home/?lang=en) broker, and are downloaded from [JForex](https://www.dukascopy.com/land/trading/swfx/eu/platforms/?lang=en) platform. In the folder you can find the quotations of Bitcoin against US dollar (BTC/USD) related to the January and February 2018.
+ * _Raw_Tick_Data_: containes some _.csv_ files that hold the raw tick prices. The files come from [Dukascopy](https://www.dukascopy.com/land/trading/swfx/eu/home/?lang=en) 
+   broker, and are downloaded from [JForex](https://www.dukascopy.com/land/trading/swfx/eu/platforms/?lang=en) platform. In the folder you can find the quotations of Bitcoin  
+   against US dollar (BTC/USD) related to the January and February 2018.
  * _Normalized_1Min_Price_: contains some pickle files with the normalized price registered into 1 minute. 
  * _Normalized_1Min_SmoothedPrice_: contains some pickle files with the normlized prices smoothed by PyWavelets registered into 1 minute.
  * _Input_Data_: contains a _.csv_ file, the input example for the trained network. It is needed to real time usage.
