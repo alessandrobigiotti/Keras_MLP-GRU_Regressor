@@ -7,7 +7,7 @@ At first I focused only on Forex price time series and later extended my interes
 The purpose of this repository is to show an easy way to create a good dataset, to train the desired model (MLP or GRU) and to use it in real time forecasting.
 
 ## Requirements
-If you have a GPU with CUDA support I highly recommend you install it. It is not mandatory. If you do not have this kind of possibility, in the code I have indicated which lines you need to comment to correctly run the program. To install CUDA follow: 
+If you have a GPU with CUDA support I highly recommend you install it. It is not mandatory. If you do not have this kind of possibility, in the code I have indicated which lines you need to comment to correctly run the program. To set up all necessary softwares follow: 
 * See this [guide](http://docs.nvidia.com/cuda/cuda-installation-guide-linux/#axzz4KKVroazE) to install CUDA
 * Download and set up [CUDA-Toolkit](https://developer.nvidia.com/cuda-downloads)
 To correctly execute the program we need to install and set up:
