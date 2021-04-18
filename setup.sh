@@ -19,13 +19,16 @@ if [ -f $PWD/setup.sh ]
 			cd ./MLP_Model_Training
 			echo Training Multi Layer Perceptron model
 			python keras_MLP_model.py
+			cd ..
 		elif [ $model_type == "GRU" ]
 		then
 			cd ./GRU_Model_Training
 			echo Training Gated Recurrent Unit model
 			python keras_GRU_model.py
+			cd ..
 		else 
 			echo Insert a valid model to train
+			cd ..
 			
 		fi
 else
