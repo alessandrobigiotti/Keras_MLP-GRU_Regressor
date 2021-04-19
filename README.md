@@ -7,11 +7,11 @@ At first I focused only on Forex price time series and later extended my interes
 The purpose of this repository is to show an easy way to create a good dataset, to train the desired model (MLP or GRU) and to use it in real time forecasting.
 
 ## Requirements
-If you have a GPU with CUDA support I highly recommend you install it. It is not mandatory. If you do not have this kind of possibility, in the code I have indicated which lines you need to comment to correctly run the program. To set up all necessary softwares follows: 
+If you have a GPU with CUDA support I highly recommend you install it. It is not mandatory. If you do not have this kind of possibility, in the code I have indicated which lines you need to comment to correctly run the program. To set up all necessary softwares follow: 
 * See this [guide](http://docs.nvidia.com/cuda/cuda-installation-guide-linux/#axzz4KKVroazE) to install CUDA
 * Download and set up [CUDA-Toolkit](https://developer.nvidia.com/cuda-downloads)
 To correctly execute the program we need to install and set up:
-* _Python3_, _Tensorflow_ and _Keras_. I found a great presentation made by [Jaff Hauton](https://github.com/jeffheaton) using Anaconda, follow the guide [here](https://www.youtube.com/watch?v=dj-Jntz-74g).  If you don't want install Anaconda, type the following commands (Debian/Ubuntu):
+* _Python3_, _Tensorflow_ and _Keras_. I found a great presentation made by [Jaff Hauton](https://github.com/jeffheaton) using Anaconda, see the [guide](https://www.youtube.com/watch?v=dj-Jntz-74g).  If you don't want install Anaconda, type the following commands (Debian/Ubuntu):
   * $ sudo apt-get update
   * $ sudo apt-get install python3.8
 * verify _python_ and _pip_ installation:
@@ -22,7 +22,7 @@ To correctly execute the program we need to install and set up:
 * If you have installed CUDA, you can use _tensorflow-gpu_:
   * $ pip install --upgrade tensorflow-gpu
 * _PyWavelets_ is a useful python package needed to apply wavelet transform, see [pywt](https://pywavelets.readthedocs.io/en/latest/)  
-**NOTICE**: make attention that the version of your GPU drivers, CUDA-Toolkit and tensorflow-gpu have compatible version. In general you need a python version greater than 3.4.X to execute the program.
+**NOTICE**: make attention that your GPU drivers, CUDA-Toolkit and tensorflow-gpu have a compatible version. In general you need a python version greater than 3.4.X to execute the program.
 
 ## The program
 The project is composed by some python scripts that allow the user to clean data,  to construct a dataset, to train a neural network model and to use it. Starting from the Tick prices movements (i.e. any price movement that has occurred), it constructs a 1 minute price movements (one can choose if use Open, Close, High or Low price). Depending on the price choosen, the program will create two time series. The first one will be a sequence of the prices, the second one will be a smoothed version of the same sequence. After the data is ready, the script start to train the neural network. One can choose if train the Multi Layer Perceprton or the Gated Recurrent Unit model. After the network is trained, one can execute the prediction.
