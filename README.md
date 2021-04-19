@@ -1,4 +1,4 @@
-# Keras_MLP-GRU_Regressor (Work in progress....)
+# Keras_MLP-GRU_Regressor
 
 ## Introduction
 This is my contribution for the master's degree thesis. In this project I present two types of nonlinear regressors for predicting time series. The first one is implemented with a classic Multi Layer Perceptron Neural Network (MLP). The second one is implemented with a Recurrent Neural Network, Gated Recurrent Unit (GRU) scheme.
