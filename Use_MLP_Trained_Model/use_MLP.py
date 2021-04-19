@@ -18,86 +18,69 @@ from keras.layers.core import Activation, Dropout
 from keras.callbacks import EarlyStopping
 from tensorflow.python.client import device_lib
 import csv
-
-MIN_VAL = 1.11775
-MAX_VAL = 1.14858
-
-def NormalizeData(dati):
-    temp = []
-    for i in range (len(dati)):
-        temp.append((dati[i] - MIN_VAL)/(MAX_VAL - MIN_VAL))
-    
-    return(np.array(temp))
-
-def DeNormalize(data):
-    denorm_data = []
-    for i in range (len(data)):
-        denorm_data.append((data[i][0]*(MAX_VAL - MIN_VAL)) + MIN_VAL)
-    return(np.array(denorm_data))
-
-def CreatePattern(array, dim):
-    dati = []
-    for j in range(len(array)-1-dim, len(array)-1, 1):
-        dati.append(array[j])
-
-    return(np.array(dati))
-
-def check_MinMax(array_dati):
-    rel_min = min(array_dati)
-    rel_max = max(array_dati)
-    
-    if(rel_min < MIN_VAL or MAX_VAL < rel_max):
-        return False
-    
-    return True
+import re as r
+import sys
+sys.path.insert(0, '../')
+from Utils.base_dir import *
+from Utils.utils import *
+from MLP_Model_Training.mlp_iperparameter_settings import size_campioni
 
 def main(): 
     
-    config = str(input('Insert the .h5 network model: \n'))
-    model = load_model(config)
-    input_dim = int(input('Insert the dimension of the input layer: \n'))
-    step_forecast = int(input('Insert the step forecast horizon: \n'))
+	#select the model trained
+	trained_model = os.path.join(str(trained_mlp), "MLP_forecast.h5")
+	model = load_model(trained_model)
+	# the input dimension for the trained network (have to be the same used during the contruction and the training of the model)
+	input_dim = size_campioni
+	
+	# insert the number of prediction we need (i.e the forecast step). Values bigger than 3 could produce bad results
+	step_forecast = int(input('Insert the step forecast horizon: \n'))
 
-    while(True):
-        file = input("Insert the file of minute oscillations (csv format file!): \n")
-        i=0
-        Price = []
-        with open(file, 'r') as csvfile:
-            spamreader = csv.reader(csvfile, delimiter = ';')
-            for row in spamreader:
-                i=i+1
-                if (i > 1):
-                    Price.append(float(row[4]))
-        array_dati = np.array(Price)
-        print(array_dati)
-    
-        ok = check_MinMax(array_dati)
-        if(ok == False): 
-            print("Max or Min violated, make a new training for the network!")
-            exit()
-    
-        pattern = NormalizeData(array_dati)
+	avg_pattern = r.compile(r'(Average){1}')
+	input_file_list = os.listdir(input_data)
+	file_avg_name = [s for s in input_file_list if avg_pattern.search(s)][0]
+	file = os.path.join(str(input_data), file_avg_name)
+	i=0
+	Price = []
+	with open(file, 'r') as csvfile:
+		spamreader = csv.reader(csvfile, delimiter = ';')
+		for row in spamreader:
+			i=i+1
+			if (i > 1 and len(row) > 0):
+				Price.append(float(row[4]))
+	array_dati = np.array(Price)
+	print(array_dati)
 
-        path = CreatePattern(pattern, input_dim)
-        shape_path = []
-        shape_path.append(path)
+	file_min = open(os.path.join(str(trained_gru), "min_val.pkl"), 'rb')
+	min_val = pickle.load(file_min)
+	file_max = open(os.path.join(str(trained_gru), "max_val.pkl"), 'rb')
+	max_val = pickle.load(file_max)
 
-        pred_made = []
+	ok = check_MinMax(array_dati, min_val, max_val)
+	if(ok == False): 
+		print("Max or Min violated, make a new training for the network!")
+		exit()
 
-        for i in range(step_forecast): 
-            pred = model.predict(np.array(shape_path))
-            pred_made.append(pred)
-            shape_path = np.roll(shape_path, -1)
-            #print("rolled path: \n")
-            #print(shape_path)
-            shape_path[0][len(shape_path[0])-1] = pred
-            print('updated patterns: \n')
-            print(str(shape_path))
-    
-        print(pred_made)
-        print('Denormalized prediction: \n')
-        prediction = DeNormalize(pred_made)
-        print(prediction)
+	pattern = Normalize_Data_For_RealTimeUse(array_dati, min_val, max_val)
+
+	path = CreatePattern(pattern, input_dim)
+	shape_path = []
+	shape_path.append(path)
+	shape_path = np.array(shape_path)
+	shape_path = np.reshape(shape_path, (shape_path.shape[0], shape_path.shape[1]))
+	pred_made = []
+
+	for i in range(step_forecast): 
+		pred = model.predict(shape_path)
+		pred_made.append(pred)
+		path = np.roll(shape_path[0], -1)
+		shape_path[0][len(shape_path[0])-1] = pred
+		print('updated patterns: '+str(shape_path))
+
+	print(pred_made)
+	print('\n\nDenormalized prediction: \n')
+	predition = DeNormalize_RealTime(pred_made, min_val, max_val)
+	print(predition)
 
 if __name__ == "__main__": 
     main()
