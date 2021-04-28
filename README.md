@@ -22,7 +22,7 @@ To correctly execute the program we need to install and set up:
 * If you have installed CUDA, you can use _tensorflow-gpu_:
   * $ pip install --upgrade tensorflow-gpu
 * _PyWavelets_ is a useful python package needed to apply wavelet transform, see [pywt](https://pywavelets.readthedocs.io/en/latest/)  
-**NOTICE**: make attention that your GPU drivers, CUDA-Toolkit and tensorflow-gpu have a compatible version. In general you need a python version greater than 3.4.X to execute the program.
+**NOTICE**: pay attention that your GPU drivers, CUDA-Toolkit and tensorflow-gpu have a compatible version. In general you need a python version greater than 3.4.X to execute the program.
 
 ## The program
 The project is composed by some python scripts that allow the user to clean data,  to construct a dataset, to train a neural network model and to use it. Starting from the Tick prices movements (i.e. any price movement that has occurred), it constructs a 1 minute price movements (one can choose if use Open, Close, High or Low price). Depending on the price choosen, the program will create two time series. The first one will be a sequence of the prices, the second one will be a smoothed version of the same sequence. After the data is ready, the script start to train the neural network. One can choose if train the Multi Layer Perceprton or the Gated Recurrent Unit model. After the network is trained, one can execute the prediction.
