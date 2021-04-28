@@ -26,6 +26,14 @@ from Utils.utils import *
 #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 #tf.enable_eager_execution()
 
+# if you cannot see any NVIDIA devices: 
+#   1. you don't have a NVIDIA GPU: remove the line -> from tensorflow.python.client import device_lib
+#   2. you have a NVIDIA GPU, but there's a wrong installation/configuration of cuda toolkit, cuda drivers, cudartlib or tensorflow-gpu
+#      - check if you see your NVIDIA GPU among available devices with the following: print(device_lib.list_local_devices())
+#      - verify that tensorflow support your cuda tolkit version 
+#      - verify that cudart is installed
+
+
 def main():
     
 	smoothed_data = input("Do you want to use smoothed data? [Y -> yes / N -> no] \n")
