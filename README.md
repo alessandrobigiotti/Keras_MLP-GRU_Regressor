@@ -52,6 +52,6 @@ Download the repository and move the main directory _Keras_MLP-GRU_Regressor_. O
 * $ ./setup.sh
 * $ ./execute_model.sh
 
-The first script will create all the the data needed (normalized data, trained model). The second script will execute the model trained to perform a real time forecast.  
-**NOTICE**: The purpose of this project is for demonstration only. Before using it in a real context it is necessary to structure the real-time forecast data in another way (retrieve data from api, query a DB and so on ...), but it is beyond my intentions.
+The first script will create all the the data needed (normalized data, trained model), then it will perform the training and the validation over the desired neural network. The second script will execute the model trained to perform a real time forecast.  
+**NOTICE**: The purpose of this project is for demonstration only. Before using it in a real context it is necessary to structure the real-time forecast data in another way (retrieve data from api, query a DB and so on ...), but it is beyond my intentions here.
 
